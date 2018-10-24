@@ -9,9 +9,11 @@
 <body>
     <h2>Using the XMLHttpRequest Object</h2>
     <div id="demo">
-        <button type="button" onclick="loadXMLDoc()">Change Content</button>
+        <button type="button" onclick="loadSameDoc()">Get Same</button>
+        <button type="button" onclick="loadNewDoc()">Get Diff</button>
     </div>
     <script>
+        var index = 0
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('/hls-sw/sw.js', { scope: '/hls-sw/' }).then(
                 function (registration) {
@@ -23,25 +25,6 @@
                     } else if (registration.active) {
                         console.log('Service worker active')
                     }
-
-                    setTimeout(() => {
-                        var xhttp = new XMLHttpRequest()
-                        xhttp.responseType = 'arraybuffer'
-                        xhttp.onreadystatechange = function () {
-                            if (this.readyState == 4 && this.status == 200) {
-                                alert('done ' + this.response.byteLength)
-                            } else if (this.readyState == 4 && this.status != 200) {
-                                alert('error')
-                            }
-                        }
-                        xhttp.open(
-                            'GET',
-                            'https://lh3.googleusercontent.com/d/1kF-84rtQi6BCQYKbxMN6VYJ7Zg3VhsZb=s0',
-                            true
-                        )
-                        xhttp.setRequestHeader('Range', 'bytes=100-1000')
-                        xhttp.send()
-                    }, 2000)
                 },
                 function (err) {
                     // registration failed :(
@@ -51,7 +34,7 @@
             )
         }
 
-        function loadXMLDoc() {
+        function loadSameDoc() {
             var xhttp = new XMLHttpRequest()
             xhttp.responseType = 'arraybuffer'
             xhttp.onreadystatechange = function () {
@@ -64,6 +47,25 @@
             xhttp.open(
                 'GET',
                 'https://lh3.googleusercontent.com/d/1kF-84rtQi6BCQYKbxMN6VYJ7Zg3VhsZb=s0?b',
+                true
+            )
+            xhttp.setRequestHeader('Range', 'bytes=100-1000')
+            xhttp.send()
+        }
+
+        function loadNewDoc(){
+            var xhttp = new XMLHttpRequest()
+            xhttp.responseType = 'arraybuffer'
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    alert('done ' + this.response.byteLength)
+                } else if (this.readyState == 4 && this.status != 200) {
+                    alert('error')
+                }
+            }
+            xhttp.open(
+                'GET',
+                'https://lh3.googleusercontent.com/d/1kF-84rtQi6BCQYKbxMN6VYJ7Zg3VhsZb=s0?b'+(++index),
                 true
             )
             xhttp.setRequestHeader('Range', 'bytes=100-1000')

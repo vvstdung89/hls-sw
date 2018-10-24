@@ -1,5 +1,11 @@
 self.addEventListener('install', function (event) {
-  console.log('install')
+  console.log('[Service Worker] Installing Service Worker ...', event)
+})
+
+//https://developers.google.com/web/fundamentals/primers/service-workers/lifecycle#clientsclaim
+self.addEventListener('activate', function (event) {
+  console.log('[Service Worker] Activating Service Worker ...', event)
+  return self.clients.claim()
 })
 
 self.addEventListener('fetch', function (event) {
