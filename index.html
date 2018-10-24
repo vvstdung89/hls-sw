@@ -9,11 +9,18 @@
 <body>
     <h2>Using the XMLHttpRequest Object</h2>
     <div id="demo">
+
+
         <button type="button" onclick="loadSameDoc()">Get Same</button>
         <button type="button" onclick="loadNewDoc()">Get Diff</button>
+
+
+
+
+
     </div>
     <script>
-        var index = 0
+        var index = (new Date()-0)
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('/hls-sw/sw.js', { scope: '/hls-sw/' }).then(
                 function (registration) {
@@ -37,6 +44,7 @@
         }
 
         function loadSameDoc() {
+            
             var time1 = new Date()
             var xhttp = new XMLHttpRequest()
             xhttp.responseType = 'arraybuffer'
