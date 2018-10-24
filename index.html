@@ -20,7 +20,7 @@
 
     </div>
     <script>
-        var index = (new Date()-0)
+        var index = 0
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('/hls-sw/sw.js', { scope: '/hls-sw/' }).then(
                 function (registration) {
