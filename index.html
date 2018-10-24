@@ -35,11 +35,13 @@
         }
 
         function loadSameDoc() {
+            var time1 = new Date()
             var xhttp = new XMLHttpRequest()
             xhttp.responseType = 'arraybuffer'
             xhttp.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
-                    alert('done ' + this.response.byteLength)
+                    var time2 = new Date()
+                    alert('done ' + this.response.byteLength + ' ' + (time2-time1)/1000 )
                 } else if (this.readyState == 4 && this.status != 200) {
                     alert('error')
                 }
@@ -49,16 +51,18 @@
                 'https://lh3.googleusercontent.com/d/1kF-84rtQi6BCQYKbxMN6VYJ7Zg3VhsZb=s0?b',
                 true
             )
-            xhttp.setRequestHeader('Range', 'bytes=100-1000')
+            xhttp.setRequestHeader('Range', 'bytes='+index+'-100000')
             xhttp.send()
         }
 
         function loadNewDoc(){
+            var time1 = new Date()
             var xhttp = new XMLHttpRequest()
             xhttp.responseType = 'arraybuffer'
             xhttp.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
-                    alert('done ' + this.response.byteLength)
+                    var time2 = new Date()
+                    alert('done ' + this.response.byteLength+ ' ' + (time2-time1)/1000)
                 } else if (this.readyState == 4 && this.status != 200) {
                     alert('error')
                 }
@@ -68,7 +72,7 @@
                 'https://lh3.googleusercontent.com/d/1kF-84rtQi6BCQYKbxMN6VYJ7Zg3VhsZb=s0?b'+(++index),
                 true
             )
-            xhttp.setRequestHeader('Range', 'bytes=100-1000')
+            xhttp.setRequestHeader('Range', 'bytes='+index+'-100000')
             xhttp.send()
         }
     </script>
