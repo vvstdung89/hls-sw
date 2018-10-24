@@ -13,7 +13,7 @@
     </div>
     <script>
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/hls-sw/sw.js', { scope: '/hls-sw' }).then(
+            navigator.serviceWorker.register('/hls-sw/sw.js', { scope: '/hls-sw/' }).then(
                 function (registration) {
                     // Registration was successful
                     if (registration.installing) {
