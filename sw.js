@@ -1,3 +1,7 @@
+self.addEventListener('install', function (event) {
+  console.log('install')
+})
+
 self.addEventListener('fetch', function (event) {
   if (event.request.url.indexOf('googleusercontent') > -1) {
     console.log('onfetch', event)
