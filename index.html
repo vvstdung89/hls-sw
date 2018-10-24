@@ -1,0 +1,41 @@
+<html>
+
+<head>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function () {
+                navigator.serviceWorker.register('/sw.js').then(function (registration) {
+                    // Registration was successful
+                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                }, function (err) {
+                    // registration failed :(
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+            });
+        }    
+    </script>
+    <script>
+        function loadXMLDoc() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.responseType = "arraybuffer";
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    alert("done " + this.response.byteLength)
+                }
+            };
+            xhttp.open("GET", "https://lh3.googleusercontent.com/d/1kF-84rtQi6BCQYKbxMN6VYJ7Zg3VhsZb=s0?b", true);
+            xhttp.setRequestHeader("Range", "bytes=100-1000");
+            xhttp.send();
+        }
+    </script>
+</head>
+
+<body>
+    <h2>Using the XMLHttpRequest Object</h2>
+
+    <div id="demo">
+        <button type="button" onclick="loadXMLDoc()">Change Content</button>
+    </div>
+</body>
+
+</html>
