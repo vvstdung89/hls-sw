@@ -9,18 +9,11 @@
 <body>
     <h2>Using the XMLHttpRequest Object</h2>
     <div id="demo">
-
-
         <button type="button" onclick="loadSameDoc()">Get Same</button>
         <button type="button" onclick="loadNewDoc()">Get Diff</button>
-
-
-
-
-
     </div>
     <script>
-        var index = (new Date()-0)
+        var index = (new Date() - 0)
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('/hls-sw/sw.js', { scope: '/hls-sw/' }).then(
                 function (registration) {
@@ -44,14 +37,14 @@
         }
 
         function loadSameDoc() {
-            
+
             var time1 = new Date()
             var xhttp = new XMLHttpRequest()
             xhttp.responseType = 'arraybuffer'
             xhttp.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
                     var time2 = new Date()
-                    alert('done ' + this.response.byteLength + ' ' + (time2-time1)/1000 )
+                    alert('done ' + this.response.byteLength + ' ' + (time2 - time1) / 1000)
                 } else if (this.readyState == 4 && this.status != 200) {
                     alert('error')
                 }
@@ -61,30 +54,40 @@
                 'https://lh3.googleusercontent.com/d/1kF-84rtQi6BCQYKbxMN6VYJ7Zg3VhsZb=s0?b',
                 true
             )
-            xhttp.setRequestHeader('Range', 'bytes='+index+'-100000')
+            xhttp.setRequestHeader('Range', 'bytes=' + index + '-100000')
             xhttp.send()
         }
 
-        function loadNewDoc(){
+        function loadNewDoc() {
             var time1 = new Date()
             var xhttp = new XMLHttpRequest()
             xhttp.responseType = 'arraybuffer'
             xhttp.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
                     var time2 = new Date()
-                    alert('done ' + this.response.byteLength+ ' ' + (time2-time1)/1000)
+                    alert('done ' + this.response.byteLength + ' ' + (time2 - time1) / 1000)
                 } else if (this.readyState == 4 && this.status != 200) {
                     alert('error')
                 }
             }
             xhttp.open(
                 'GET',
-                'https://lh3.googleusercontent.com/d/1kF-84rtQi6BCQYKbxMN6VYJ7Zg3VhsZb=s0?b'+(++index),
+                'https://lh3.googleusercontent.com/d/1kF-84rtQi6BCQYKbxMN6VYJ7Zg3VhsZb=s0?b' + (++index),
                 true
             )
-            xhttp.setRequestHeader('Range', 'bytes='+index+'-100000')
+            xhttp.setRequestHeader('Range', 'bytes=' + index + '-100000')
             xhttp.send()
         }
+
+
+        function startWorker() {
+            if (typeof (Worker) !== "undefined") {
+                w = new Worker("/hls-sw/demo_workers.js");
+            } else {
+                alert("Sorry, your browser does not support Web Workers...")
+            }
+        }
+        startWorker()
     </script>
 </body>
 

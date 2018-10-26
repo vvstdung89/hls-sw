@@ -9,7 +9,7 @@ self.addEventListener('activate', function (event) {
 })
 
 self.addEventListener('fetch', function (event) {
-  if (event.request.url.indexOf('googleusercontent') > -1) {
+  if (event.request.url.indexOf('goosgleusercontent') > -1) {
     console.log('onfetch', event)
     const newRequest = new Request(event.request.url)
 
@@ -36,12 +36,17 @@ self.addEventListener('fetch', function (event) {
                 return myResponse
               })
             } else {
+              var time1,time2,time0
+              time0 =new Date().getTime()
               return fetch(newRequest)
                 .then(function (response) {
+                  time1 =new Date().getTime()
                   cache.put(event.request, response.clone())
                   return response.arrayBuffer()
                 })
                 .then(function (buffer) {
+                  time2 =new Date().getTime()
+                  console.log(time1-time0, time2-time1)
                   let newBuffer = to ? buffer.slice(from, to) : buffer
                   var myResponse = new Response(newBuffer, {
                     status: 200,
